@@ -1,0 +1,113 @@
+body {
+    margin: 0 15% 0 15%;
+}
+
+footer {
+    margin-top: -0.5em;
+    padding: 2em;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    font-size: 0.75rem;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 1.25rem;
+    flex-wrap: wrap;
+}
+
+.logo {
+    display: inline-block;
+    width: 9.75rem;
+    height: auto;
+}
+
+.add-data-icon {
+    margin-right: 0.5rem;
+}
+
+.add-data-button {
+}
+
+@media screen and (max-width: 457px) {
+    .add-data-button {
+        margin-top: 0.625rem;
+    }
+}
+
+main {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 1.25rem;
+    flex-wrap: wrap;
+}
+
+.transactions-table {
+    width: 100%;
+}
+
+.transactions-table > div > table > tbody {
+    font-size: 0.875rem;
+    line-height: 0;
+    white-space: nowrap;
+}
+
+.transactions-table > div > table > thead {
+    font-size: 0.75rem;
+    height: 3.125rem;
+}
+
+.transactions-table > div > table > tbody > tr > td:nth-child(2) {
+    color: #6B7280;
+}
+
+.transactions-table > div > table > tbody > tr > td:nth-child(3) {
+    color: #111928;
+    font-weight: bold;
+}
+
+.completed-status-button {
+    color: #03543F;
+    background-color: #DEF7EC;
+}
+
+.cancelled-status-button {
+    color: #9B1C1C;
+    background-color: #FDE8E8;
+}
+
+.in-progress-status-button {
+    color: #5521B5;
+    background-color: #EDEBFE;
+}
+
+.overlay {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+#authentication-modal {
+    position: fixed;
+    left: 36%;
+    top: 23%;
+}
+
+#authentication-modal-body {
+    padding: 0 2rem 2rem 2rem;
+}
+
+#authentication-modal-header {
+    padding: 1.261rem 0.938rem;
+    border-width: 0;
+}
