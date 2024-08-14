@@ -97,17 +97,17 @@ main {
     background-color: rgba(0, 0, 0, 0.15);
 }
 
-#authentication-modal {
+.authentication-modal {
     position: fixed;
     left: 36%;
     top: 23%;
 }
 
-#authentication-modal-body {
+.authentication-modal-body {
     padding: 0 2rem 2rem 2rem;
 }
 
-#authentication-modal-header {
+.authentication-modal-header {
     padding: 1.261rem 0.938rem;
     border-width: 0;
 }

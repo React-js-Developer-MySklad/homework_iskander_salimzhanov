@@ -5,11 +5,11 @@ const rootElement = document.getElementById('root');
 rootElement.innerHTML = html;
 
 document.addEventListener('DOMContentLoaded', () => {
-        const addDataButton = document.getElementById('add-data-button');
+        const addDataButton = document.querySelector('.add-data-button');
         addDataButton.addEventListener('click', () => {
-                const popup = document.getElementById('authentication-modal');
-                const overlay = document.getElementById('overlay');
-                const closePopup = document.getElementById('close-modal');
+                const popup = document.querySelector('.authentication-modal');
+                const overlay = document.querySelector('.overlay');
+                const closePopup = document.querySelector('.close-modal');
                 popup.classList.remove('hidden');
                 overlay.classList.remove('hidden');
                 closePopup.addEventListener('click', () => {
