@@ -1,5 +1,5 @@
-import html from './table.html'
-import './table.css'
+import html from "./table.html"
+import "./table.css"
 import getContrAgents from "../contrAgents"
 
 const rowClass = "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -7,10 +7,10 @@ const cellClass = "px-6 py-4"
 const tableClass = "contragents-table"
 
 export default function buildTable() {
-    let tableBlock = getTableBlock()
+    const tableBlock = getTableBlock()
     tableBlock.innerHTML = html
-    let tbody = tableBlock.querySelector("tbody")
-    for (let contrAgent of getContrAgents()) {
+    const tbody = tableBlock.querySelector("tbody")
+    for (const contrAgent of getContrAgents()) {
         tbody.appendChild(createRow(contrAgent))
     }
     return tableBlock
@@ -21,7 +21,7 @@ function getTableBlock() {
 }
 
 function createCell(content, cellTag, scope) {
-    let cell = document.createElement(cellTag)
+    const cell = document.createElement(cellTag)
     if (scope) {
         cell.scope = scope
     }
@@ -31,7 +31,7 @@ function createCell(content, cellTag, scope) {
 }
 
 function createRow(contrAgent) {
-    let row = document.createElement("tr")
+    const row = document.createElement("tr")
     row.className = rowClass
     row.appendChild(createCell(contrAgent.id, "th", "row"))
     row.appendChild(createCell(contrAgent.name, "td"))

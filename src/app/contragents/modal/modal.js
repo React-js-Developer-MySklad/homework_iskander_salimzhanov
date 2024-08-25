@@ -1,59 +1,63 @@
-import html from './modal.html'
-import './modal.css'
-import getContrAgents, {Contragent} from "../contrAgents"
+import html from "./modal.html"
+import "./modal.css"
+import getContrAgents, { Contragent } from "../contrAgents"
 import buildTable from "../table/table"
+import { isValidId } from "../contrAgents"
 
 const errorClass = "error"
 
 export default function buildModal() {
-    let modalBlock = getModalBlock()
+    const modalBlock = getModalBlock()
     modalBlock.innerHTML = html
-    let addButton = modalBlock.querySelector(".add-data-button")
-    addButton.addEventListener('click', addContrAgent)
+    const addButton = modalBlock.querySelector(".add-data-button")
+    addButton.addEventListener("click", addContrAgent)
 }
 
 function addContrAgent() {
-    let modalBlock = getModalBlock()
-    let inputs = getInputs(modalBlock)
-    Object.values(inputs).forEach(unmarkError);
-    let contrAgent = new Contragent(
+    const modalBlock = getModalBlock()
+    const inputs = getInputs(modalBlock)
+    Object.values(inputs).forEach(unmarkError)
+    const contrAgent = new Contragent(
         self.crypto.randomUUID(),
         inputs.name.value,
         inputs.inn.value,
         inputs.address.value,
         inputs.kpp.value
     )
-    let isValid = validateContrAgentAndMarkInvalidFields(contrAgent, inputs)
-    if (isValid) {
+    const invalidFields = validateContrAgent(contrAgent)
+    if (invalidFields.length === 0) {
         getContrAgents().push(contrAgent)
         buildTable()
         closeModal()
+    } else {
+        markErrors(invalidFields, inputs)
     }
 }
 
-function validateContrAgentAndMarkInvalidFields(contrAgent, inputs) {
-    let isValid = true
-    if (!contrAgent.isValidId()) {
-        isValid = false
-        markError(inputs.id)
+function markErrors(invalidFields, inputs) {
+    for (const field of invalidFields) {
+        markError(inputs[field])
+    }
+}
+
+function validateContrAgent(contrAgent) {
+    const invalidFields = []
+    if (!isValidId(contrAgent)) {
+        invalidFields.push("id")
     }
     if (!contrAgent.isValidName()) {
-        isValid = false
-        markError(inputs.name)
+        invalidFields.push("name")
     }
     if (!contrAgent.isValidInn()) {
-        isValid = false
-        markError(inputs.inn)
+        invalidFields.push("inn")
     }
     if (!contrAgent.isValidAddress()) {
-        isValid = false
-        markError(inputs.address)
+        invalidFields.push("address")
     }
     if (!contrAgent.isValidKpp()) {
-        isValid = false
-        markError(inputs.kpp)
+        invalidFields.push("kpp")
     }
-    return isValid
+    return invalidFields
 }
 
 function getInputs(modalBlock) {
@@ -61,7 +65,7 @@ function getInputs(modalBlock) {
         name: modalBlock.querySelector(".contragent-name"),
         inn: modalBlock.querySelector(".contragent-inn"),
         address: modalBlock.querySelector(".contragent-address"),
-        kpp: modalBlock.querySelector(".contragent-kpp")
+        kpp: modalBlock.querySelector(".contragent-kpp"),
     }
 }
 
@@ -82,15 +86,15 @@ function closeModal() {
 }
 
 function toggleModalVisibility(hidden) {
-    let modalBlock = getModalBlock();
-    const popup = modalBlock.querySelector('.contragents-modal');
-    const overlay = modalBlock.querySelector('.overlay');
-    popup.classList.toggle('hidden', hidden);
-    overlay.classList.toggle('hidden', hidden);
+    const modalBlock = getModalBlock()
+    const popup = modalBlock.querySelector(".contragents-modal")
+    const overlay = modalBlock.querySelector(".overlay")
+    popup.classList.toggle("hidden", hidden)
+    overlay.classList.toggle("hidden", hidden)
     if (!hidden) {
-        const closePopup = modalBlock.querySelector('.close-modal');
-        closePopup.addEventListener('click', closeModal);
-        overlay.addEventListener('click', closeModal);
+        const closePopup = modalBlock.querySelector(".close-modal")
+        closePopup.addEventListener("click", closeModal)
+        overlay.addEventListener("click", closeModal)
     }
 }
 

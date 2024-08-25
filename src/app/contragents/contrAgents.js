@@ -6,6 +6,18 @@ export default function getContrAgents() {
     return contrAgents
 }
 
+export function isValidId(contrAgent) {
+    if (!contrAgent.id) {
+        return false
+    }
+    for (const otherContrAgent of getContrAgents()) {
+        if (otherContrAgent.id === contrAgent.id) {
+            return false
+        }
+    }
+    return true
+}
+
 export class Contragent {
     constructor(id, name, inn, address, kpp) {
         this.id = id
@@ -14,18 +26,10 @@ export class Contragent {
         this.address = address
         this.kpp = kpp
 
-        this.isValidId.bind(this)
         this.isValidName.bind(this)
         this.isValidInn.bind(this)
-    }
-
-    isValidId() {
-        for (let otherContrAgent of getContrAgents()) {
-            if (otherContrAgent.id === this.id) {
-                return false
-            }
-        }
-        return this.id
+        this.isValidAddress(this)
+        this.isValidKpp(this)
     }
 
     isValidName() {
@@ -49,6 +53,6 @@ function isExactMatch(string, regex) {
     if (!string) {
         return false
     }
-    let match = string.match(regex)
+    const match = string.match(regex)
     return match && string === match[0]
 }
