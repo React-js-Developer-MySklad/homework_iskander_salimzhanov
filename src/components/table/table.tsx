@@ -1,7 +1,7 @@
-import { Contragent } from "src/domain/contrAgent"
+import { ContrAgent } from "../domain/contrAgent"
 
 type ContragentArray = {
-    contrAgents: Contragent[]
+    contrAgents: ContrAgent[]
 }
 
 export default function Table({ contrAgents }: ContragentArray) {

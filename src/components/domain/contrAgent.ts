@@ -1,7 +1,7 @@
 const innRegex = new RegExp("\\d{11}")
 const kppRegex = new RegExp("\\d{9}")
 
-export function isValidId(contrAgent: Contragent, contrAgents: Contragent[]) {
+export function isValidId(contrAgent: ContrAgent, contrAgents: ContrAgent[]) {
     if (!contrAgent.id) {
         return false
     }
@@ -13,7 +13,7 @@ export function isValidId(contrAgent: Contragent, contrAgents: Contragent[]) {
     return true
 }
 
-export class Contragent {
+export class ContrAgent {
     id: string
     name: string
     inn: string
