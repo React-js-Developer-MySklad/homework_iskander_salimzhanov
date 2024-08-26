@@ -1,35 +1,41 @@
 import Modal from "./modal"
-import { render, screen, fireEvent } from "@testing-library/react"
+import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
 
 describe("Модальное окно добавления контрагента", () => {
-    test("Проверка сохранения пустого модального окна", () => {
-        render(<Modal onClose={() => {}} />)
+    test("Проверка сохранения пустого модального окна", async () => {
+        render(<Modal onSubmit={() => {}} onClose={() => {}} />)
 
         const modalElement = screen.getByTestId("modal-test")
         expect(modalElement).toBeInTheDocument()
 
-        fireEvent.click(screen.getByText(/close/i))
-        expect(screen.getByLabelText(/name/i)).toHaveClass("error")
-        expect(screen.getByLabelText(/inn/i)).toHaveClass("error")
-        expect(screen.getByLabelText(/address/i)).toHaveClass("error")
-        expect(screen.getByLabelText(/kpp/i)).toHaveClass("error")
+        fireEvent.click(screen.getByTestId("add-data-button"))
+        await waitFor(() => {
+            expect(screen.getByLabelText("Наименование", { selector: "input" })).toHaveClass("error")
+            expect(screen.getByLabelText("ИНН", { selector: "input" })).toHaveClass("error")
+            expect(screen.getByLabelText("Адрес", { selector: "input" })).toHaveClass("error")
+            expect(screen.getByLabelText("КПП", { selector: "input" })).toHaveClass("error")
+        })
     }),
         test("Проверка сохранения модального окна с заполнеными данными", () => {
-            render(<Modal onClose={() => {}} />)
+            render(<Modal onSubmit={() => {}} onClose={() => {}} />)
 
             const modalElement = screen.getByTestId("modal-test")
             expect(modalElement).toBeInTheDocument()
 
-            fireEvent.change(screen.getByLabelText(/name/i), { target: { value: "New ContrAgent" } })
-            fireEvent.change(screen.getByLabelText(/inn/i), { target: { value: "12345678901" } })
-            fireEvent.change(screen.getByLabelText(/address/i), { target: { value: "Some Adress" } })
-            fireEvent.change(screen.getByLabelText(/kpp/i), { target: { value: "123456789" } })
+            fireEvent.change(screen.getByLabelText("Наименование", { selector: "input" }), {
+                target: { value: "New ContrAgent" },
+            })
+            fireEvent.change(screen.getByLabelText("ИНН", { selector: "input" }), { target: { value: "12345678901" } })
+            fireEvent.change(screen.getByLabelText("Адрес", { selector: "input" }), {
+                target: { value: "Some Adress" },
+            })
+            fireEvent.change(screen.getByLabelText("КПП", { selector: "input" }), { target: { value: "123456789" } })
 
-            fireEvent.click(screen.getByText(/close/i))
-            expect(screen.getByLabelText(/name/i)).not.toHaveClass("error")
-            expect(screen.getByLabelText(/inn/i)).not.toHaveClass("error")
-            expect(screen.getByLabelText(/address/i)).not.toHaveClass("error")
-            expect(screen.getByLabelText(/kpp/i)).not.toHaveClass("error")
+            fireEvent.click(screen.getByTestId("add-data-button"))
+            expect(screen.getByLabelText("Наименование", { selector: "input" })).not.toHaveClass("error")
+            expect(screen.getByLabelText("ИНН", { selector: "input" })).not.toHaveClass("error")
+            expect(screen.getByLabelText("Адрес", { selector: "input" })).not.toHaveClass("error")
+            expect(screen.getByLabelText("КПП", { selector: "input" })).not.toHaveClass("error")
         })
 })

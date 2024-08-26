@@ -3,19 +3,31 @@ import Header from "./header/header"
 import Table from "./table/table"
 import { useState } from "react"
 import "./app.css"
+import Modal from "./modal/modal"
 
 export default function App() {
     const [contrAgents, setContrAgents] = useState<ContrAgent[]>([])
+    const [isModalOpen, setModalOpen] = useState(false)
 
-    const addContrAgent = () => {}
+    const addContrAgent = (contrAgent: ContrAgent) => {
+        setContrAgents((prevContrAgents) => [...prevContrAgents, contrAgent])
+    }
+
+    const openModal = () => {
+        setModalOpen(true)
+    }
+    const closeModal = () => {
+        setModalOpen(false)
+    }
 
     return (
         <>
             <header>
-                <Header onButtonClick={addContrAgent} />
+                <Header onButtonClick={openModal} />
             </header>
             <main>
                 <Table contrAgents={contrAgents} />
+                {isModalOpen && <Modal onSubmit={addContrAgent} onClose={closeModal} />}
             </main>
             <footer> </footer>
         </>
