@@ -5,14 +5,18 @@ import { useState } from "react"
 import "./app.css"
 
 export default function App() {
-    const [contrAgents, setContrAgents] = useState<ContrAgent[]>()
+    const [contrAgents, setContrAgents] = useState<ContrAgent[]>([])
+
+    const addContrAgent = () => {}
 
     return (
         <>
             <header>
-                <Header />
+                <Header onButtonClick={addContrAgent} />
             </header>
-            <main></main>
+            <main>
+                <Table contrAgents={contrAgents} />
+            </main>
             <footer> </footer>
         </>
     )

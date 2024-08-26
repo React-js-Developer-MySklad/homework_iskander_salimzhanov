@@ -4,7 +4,7 @@ import "@testing-library/jest-dom"
 
 describe("Заголовок страницы", () => {
     test("Проверка отрисовки заголовка страницы", () => {
-        render(<Header />)
+        render(<Header onButtonClick={() => {}} />)
 
         const logoElement = screen.getByAltText("MoySklad Logo")
         expect(logoElement).toBeInTheDocument()
