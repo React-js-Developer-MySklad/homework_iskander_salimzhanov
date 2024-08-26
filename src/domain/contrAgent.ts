@@ -1,16 +1,11 @@
-const contrAgents = []
 const innRegex = new RegExp("\\d{11}")
 const kppRegex = new RegExp("\\d{9}")
 
-export default function getContrAgents() {
-    return contrAgents
-}
-
-export function isValidId(contrAgent) {
+export function isValidId(contrAgent: Contragent, contrAgents: Contragent[]) {
     if (!contrAgent.id) {
         return false
     }
-    for (const otherContrAgent of getContrAgents()) {
+    for (const otherContrAgent of contrAgents) {
         if (otherContrAgent.id === contrAgent.id) {
             return false
         }
@@ -19,7 +14,13 @@ export function isValidId(contrAgent) {
 }
 
 export class Contragent {
-    constructor(id, name, inn, address, kpp) {
+    id: string
+    name: string
+    inn: string
+    address: string
+    kpp: string
+
+    constructor(id: string, name: string, inn: string, address: string, kpp: string) {
         this.id = id
         this.name = name
         this.inn = inn
@@ -28,8 +29,8 @@ export class Contragent {
 
         this.isValidName.bind(this)
         this.isValidInn.bind(this)
-        this.isValidAddress(this)
-        this.isValidKpp(this)
+        this.isValidAddress.bind(this)
+        this.isValidKpp.bind(this)
     }
 
     isValidName() {
@@ -49,7 +50,7 @@ export class Contragent {
     }
 }
 
-function isExactMatch(string, regex) {
+function isExactMatch(string: string, regex: RegExp) {
     if (!string) {
         return false
     }
