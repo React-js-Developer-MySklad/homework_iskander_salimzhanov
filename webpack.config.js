@@ -28,17 +28,30 @@ module.exports = {
                 },
             },
             {
-                test: /\.css$/,
-                use: ["style-loader", "css-loader"],
+                test: /\.css$/i,
+                include: [path.resolve(__dirname, "src")],
+                use: [
+                    "style-loader",
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            esModule: false,
+                        },
+                    },
+                    {
+                        loader: "css-loader",
+                    },
+                    "postcss-loader",
+                ],
             },
             {
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: 'asset/resource'
-               },
-               {
+                type: "asset/resource",
+            },
+            {
                 test: /\.(svg)$/i,
-                type: 'asset/inline'
-               }
+                type: "asset/inline",
+            },
         ],
     },
     output: {

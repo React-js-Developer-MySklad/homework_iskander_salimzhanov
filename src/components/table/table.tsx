@@ -1,4 +1,4 @@
-import { ContrAgent } from "../domain/contrAgent"
+import { ContrAgent } from "../../domain/contrAgent"
 
 type ContragentArray = {
     contrAgents: ContrAgent[]
@@ -28,7 +28,7 @@ export default function Table({ contrAgents }: ContragentArray) {
             </thead>
             <tbody className="text-gray-700">
                 {contrAgents.map((agent) => (
-                    <tr>
+                    <tr key={agent.id}>
                         <th scope="row">{agent.id}</th>
                         <td>{agent.name}</td>
                         <td>{agent.inn}</td>

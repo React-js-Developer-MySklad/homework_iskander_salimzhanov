@@ -1,7 +1,7 @@
 import Table from "./table"
 import { render, screen } from "@testing-library/react"
 import "@testing-library/jest-dom"
-import { ContrAgent } from "../domain/contrAgent"
+import { ContrAgent } from "../../domain/contrAgent"
 
 describe("Таблица контрагентов", () => {
     test("Проверка отрисовки таблицы и отображения двух контрагентов", () => {
