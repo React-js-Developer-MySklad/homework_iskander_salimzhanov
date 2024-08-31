@@ -1,3 +1,11 @@
 {
-  "contrAgents": []
+  "contrAgents": [
+    {
+      "id": "ea19",
+      "name": "ASDa",
+      "inn": "12345678999",
+      "address": "asd",
+      "kpp": "666625566"
+    }
+  ]
 }
