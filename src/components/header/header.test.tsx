@@ -1,10 +1,15 @@
-import Header from "./header"
+import ContrAgentHeader from "./header"
 import { render, screen } from "@testing-library/react"
 import "@testing-library/jest-dom"
+import { ContrAgentContextProvider } from "../../contexts/contr_agent/contrAgentContext"
 
 describe("Заголовок страницы", () => {
     test("Проверка отрисовки заголовка страницы", () => {
-        render(<Header onButtonClick={() => {}} />)
+        render(
+            <ContrAgentContextProvider>
+                <ContrAgentHeader />
+            </ContrAgentContextProvider>
+        )
 
         const logoElement = screen.getByAltText("MoySklad Logo")
         expect(logoElement).toBeInTheDocument()
