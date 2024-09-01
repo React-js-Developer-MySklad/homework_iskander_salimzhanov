@@ -30,9 +30,6 @@ header {
     margin-right: 0.5rem;
 }
 
-.add-data-button {
-}
-
 @media screen and (max-width: 457px) {
     .add-data-button {
         margin-top: 0.625rem;
@@ -49,18 +46,18 @@ main {
 }
 
 .completed-status-button {
-    color: #03543F;
-    background-color: #DEF7EC;
+    color: #03543f;
+    background-color: #def7ec;
 }
 
 .cancelled-status-button {
-    color: #9B1C1C;
-    background-color: #FDE8E8;
+    color: #9b1c1c;
+    background-color: #fde8e8;
 }
 
 .in-progress-status-button {
-    color: #5521B5;
-    background-color: #EDEBFE;
+    color: #5521b5;
+    background-color: #edebfe;
 }
 
 .overlay {
