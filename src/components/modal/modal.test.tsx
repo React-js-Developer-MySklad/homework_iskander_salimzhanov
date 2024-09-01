@@ -36,13 +36,13 @@ describe("Модальное окно добавления контрагент�
 
         fireEvent.click(screen.getByTestId("add-contr-agent-button"))
         await waitFor(() => {
-            expect(screen.getByLabelText("Наименование", { selector: "input" })).toHaveClass("error")
-            expect(screen.getByLabelText("ИНН", { selector: "input" })).toHaveClass("error")
-            expect(screen.getByLabelText("Адрес", { selector: "input" })).toHaveClass("error")
-            expect(screen.getByLabelText("КПП", { selector: "input" })).toHaveClass("error")
+            expect(screen.getByTestId("contr-agent-name-input-test")).toHaveClass("error")
+            expect(screen.getByTestId("contr-agent-inn-input-test")).toHaveClass("error")
+            expect(screen.getByTestId("contr-agent-address-input-test")).toHaveClass("error")
+            expect(screen.getByTestId("contr-agent-kpp-input-test")).toHaveClass("error")
         })
     }),
-        test("Проверка сохранения модального окна с заполнеными данными", () => {
+        test("Проверка сохранения модального окна с заполнеными данными", async () => {
             render(
                 <MockContrAgentContextProvider>
                     <ContrAgentEditModal />
@@ -52,19 +52,17 @@ describe("Модальное окно добавления контрагент�
             const modalElement = screen.getByTestId("contr-agent-edit-modal-test")
             expect(modalElement).toBeInTheDocument()
 
-            fireEvent.change(screen.getByLabelText("Наименование", { selector: "input" }), {
-                target: { value: "New ContrAgent" },
-            })
-            fireEvent.change(screen.getByLabelText("ИНН", { selector: "input" }), { target: { value: "12345678901" } })
-            fireEvent.change(screen.getByLabelText("Адрес", { selector: "input" }), {
-                target: { value: "Some Adress" },
-            })
-            fireEvent.change(screen.getByLabelText("КПП", { selector: "input" }), { target: { value: "123456789" } })
+            fireEvent.change(screen.getByTestId("contr-agent-name-input-test"), { target: { value: "New ContrAgent" } })
+            fireEvent.change(screen.getByTestId("contr-agent-inn-input-test"), { target: { value: "12345678901" } })
+            fireEvent.change(screen.getByTestId("contr-agent-address-input-test"), { target: { value: "Some Adress" } })
+            fireEvent.change(screen.getByTestId("contr-agent-kpp-input-test"), { target: { value: "123456789" } })
 
             fireEvent.click(screen.getByTestId("add-contr-agent-button"))
-            expect(screen.getByLabelText("Наименование", { selector: "input" })).not.toHaveClass("error")
-            expect(screen.getByLabelText("ИНН", { selector: "input" })).not.toHaveClass("error")
-            expect(screen.getByLabelText("Адрес", { selector: "input" })).not.toHaveClass("error")
-            expect(screen.getByLabelText("КПП", { selector: "input" })).not.toHaveClass("error")
+            await waitFor(() => {
+                expect(screen.getByTestId("contr-agent-name-input-test")).not.toHaveClass("error")
+                expect(screen.getByTestId("contr-agent-inn-input-test")).not.toHaveClass("error")
+                expect(screen.getByTestId("contr-agent-address-input-test")).not.toHaveClass("error")
+                expect(screen.getByTestId("contr-agent-kpp-input-test")).not.toHaveClass("error")
+            })
         })
 })

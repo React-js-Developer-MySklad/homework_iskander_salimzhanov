@@ -14,5 +14,9 @@
 }
 
 .error {
-    border-color: #9B1C1C;
+    border-color: #ff3333;
+}
+
+.error-text {
+    color: #ff3333;
 }

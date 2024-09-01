@@ -21,7 +21,7 @@ export default function ContrAgentRow({ contrAgent }: { contrAgent: ContrAgent }
                     href="#"
                     className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                     onClick={(e) => {
-                        e.stopPropagation() // Останавливаем распространение события
+                        e.stopPropagation()
                         deleteContrAgent(contrAgent.id.toString())
                     }}
                 >
