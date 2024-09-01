@@ -1,17 +1,16 @@
+import useContrAgentContext, { EMPTY_CONTR_AGENT } from "../../contexts/contr_agent/contrAgentContext"
 import logo from "../../assets/logo.jpg"
 
-type HeaderProps = {
-    onButtonClick: () => void
-}
+export default function ContrAgentHeader() {
+    const { openEditModal } = useContrAgentContext()
 
-export default function Header({ onButtonClick }: HeaderProps) {
     return (
         <>
             <img src={logo} alt="MoySklad Logo"></img>
             <button
                 type="button"
                 className="add-data-button text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                onClick={onButtonClick}
+                onClick={() => openEditModal(EMPTY_CONTR_AGENT)}
             >
                 <svg
                     className="add-data-icon"

@@ -1,34 +1,23 @@
 import { ContrAgent } from "../domain/contrAgent"
-import Header from "./header/header"
-import Table from "./table/table"
-import { useState } from "react"
+import ContrAgentHeader from "./header/header"
+import ContrAgentTable from "./table/table"
+import { useContext, useState } from "react"
 import "./app.css"
-import Modal from "./modal/modal"
+import ContrAgentEditModal from "./modal/modal"
 import Footer from "./footer/footer"
+import useContrAgentContext, { ContrAgentContextProvider } from "../contexts/contr_agent/contrAgentContext"
 
 export default function App() {
-    const [contrAgents, setContrAgents] = useState<ContrAgent[]>([])
-    const [isModalOpen, setModalOpen] = useState(false)
-
-    const addContrAgent = (contrAgent: ContrAgent) => {
-        setContrAgents((prevContrAgents) => [...prevContrAgents, contrAgent])
-    }
-
-    const openModal = () => {
-        setModalOpen(true)
-    }
-    const closeModal = () => {
-        setModalOpen(false)
-    }
+    const { editModalOpen } = useContrAgentContext()
 
     return (
         <>
             <header>
-                <Header onButtonClick={openModal} />
+                <ContrAgentHeader />
             </header>
             <main>
-                <Table contrAgents={contrAgents} />
-                {isModalOpen && <Modal onSubmit={addContrAgent} onClose={closeModal} />}
+                <ContrAgentTable />
+                {editModalOpen && <ContrAgentEditModal />}
             </main>
             <footer>
                 <Footer />

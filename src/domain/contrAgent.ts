@@ -1,11 +1,11 @@
 export class ContrAgent {
-    id: string
+    id: String
     name: string
     inn: string
     address: string
     kpp: string
 
-    constructor(id: string, name: string, inn: string, address: string, kpp: string) {
+    constructor(id: String, name: string, inn: string, address: string, kpp: string) {
         this.id = id
         this.name = name
         this.inn = inn

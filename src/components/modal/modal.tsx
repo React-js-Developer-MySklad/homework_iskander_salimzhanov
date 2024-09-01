@@ -1,17 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { ContrAgent } from "../../domain/contrAgent"
 import { isValidName, isValidInn, isValidKpp, isValidAddress } from "../../utils/contrAgentValidation"
 import { v4 as uuidv4 } from "uuid"
 import "./modal.css"
+import useContrAgentContext from "../../contexts/contr_agent/contrAgentContext"
 
-type ModalProps = {
-    onSubmit: (contrAgent: ContrAgent) => void
-    onClose: () => void
-}
-
-export default function Modal({ onSubmit, onClose }: ModalProps) {
+export default function ContrAgentEditModal() {
+    const { contrAgentToEdit, saveContrAgent, closeEditModal } = useContrAgentContext()
     const [errors, setErrors] = useState<{ name?: boolean; inn?: boolean; address?: boolean; kpp?: boolean }>({})
-    const [contrAgent, setContrAgent] = useState<ContrAgent>(new ContrAgent(uuidv4(), "", "", "", ""))
+    const [contrAgent, setContrAgent] = useState<ContrAgent>(contrAgentToEdit)
 
     function validate(contrAgent: ContrAgent) {
         const errors: { name?: boolean; inn?: boolean; address?: boolean; kpp?: boolean } = {}
@@ -30,12 +27,12 @@ export default function Modal({ onSubmit, onClose }: ModalProps) {
         return errors
     }
 
-    const submit = () => {
+    const submit = async () => {
         const newErrors = validate(contrAgent)
         setErrors(newErrors)
         if (Object.keys(newErrors).length === 0) {
-            onSubmit(contrAgent)
-            onClose()
+            await saveContrAgent(contrAgent)
+            closeEditModal()
         }
     }
 
@@ -43,7 +40,7 @@ export default function Modal({ onSubmit, onClose }: ModalProps) {
         <div className="contragents-modal">
             <div className="overlay"></div>
             <div
-                data-testid="modal-test"
+                data-testid="contr-agent-edit-modal-test"
                 aria-hidden="true"
                 className="contragents-modal overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
             >
@@ -54,7 +51,7 @@ export default function Modal({ onSubmit, onClose }: ModalProps) {
                                 type="button"
                                 className="close-modal end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                                 data-modal-hide="contragents-modal"
-                                onClick={onClose}
+                                onClick={closeEditModal}
                             >
                                 <svg
                                     className="w-3 h-3"
@@ -77,7 +74,7 @@ export default function Modal({ onSubmit, onClose }: ModalProps) {
                         <div className="contragents-modal-body p-4 md:p-5">
                             <form className="space-y-4" action="#">
                                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                                    Добавить Контрагента
+                                    Сохранить Контрагента
                                 </h3>
                                 <div>
                                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
@@ -165,7 +162,7 @@ export default function Modal({ onSubmit, onClose }: ModalProps) {
                                 </div>
                                 <div className="add-data-button">
                                     <button
-                                        data-testid="add-data-button"
+                                        data-testid="add-contr-agent-button"
                                         type="button"
                                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg  px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                         onClick={submit}
@@ -185,7 +182,7 @@ export default function Modal({ onSubmit, onClose }: ModalProps) {
                                                 fill="white"
                                             />
                                         </svg>
-                                        Добавить
+                                        Сохранить
                                     </button>
                                 </div>
                             </form>
